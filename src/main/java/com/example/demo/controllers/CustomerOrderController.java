@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.CustomerOrder;
+import com.example.demo.models.CustomerOrderDto;
 import com.example.demo.models.OrderItem;
 import com.example.demo.services.CustomerOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,11 @@ public class CustomerOrderController {
     private CustomerOrderService customerOrderService;
 
     @PostMapping
-    public CustomerOrder createCustomerOrder(@RequestParam String customerEmail, @RequestParam String customerAddress, @RequestBody List<OrderItem> items) {
-        return customerOrderService.createCustomerOrder(customerEmail, customerAddress, items);
+    public CustomerOrder createCustomerOrder(@RequestBody CustomerOrderDto customerOrderDto) {
+        return customerOrderService.createCustomerOrder(
+                customerOrderDto.getCustomerEmail(),
+                customerOrderDto.getCustomerAddress(),
+                customerOrderDto.getItems());
     }
 
     @PostMapping("/{orderId}/items")

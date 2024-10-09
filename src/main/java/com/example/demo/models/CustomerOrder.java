@@ -32,6 +32,26 @@ public class CustomerOrder {
     }
 
     // Getters and Setters
+    public void addOrderItem(OrderItem item) {
+        items.add(item);
+    }
+
+    public void removeOrderItem(OrderItem item) {
+        items.remove(item);
+    }
+
+    public BigDecimal calculateTotal() {
+        return items.stream().map(OrderItem::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public void sendForDelivery() {
+        this.deliveryStatus = "Shipped";
+    }
+
+    public void updateDeliveryStatus(String status) {
+        this.deliveryStatus = status;
+    }
+
     public Long getId() {
         return id;
     }
